@@ -21,6 +21,7 @@ const app = (0, express_1.default)();
 app.use(express_1.default.json());
 app.use((0, cors_1.default)());
 const prisma = new client_1.PrismaClient();
+const port = process.env.PORT || 3333;
 /**** GAMES ****/
 app.get("/games", (request, response) => __awaiter(void 0, void 0, void 0, function* () {
     const games = yield prisma.game.findMany({
@@ -106,4 +107,4 @@ app.get("/ads/:id/discord", (request, response) => __awaiter(void 0, void 0, voi
         discord: ad.discord
     });
 }));
-app.listen(3333);
+app.listen(port);

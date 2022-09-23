@@ -11,6 +11,8 @@ app.use(cors())
 
 const prisma = new PrismaClient()
 
+const port = process.env.PORT || 3333
+
 /**** GAMES ****/
 app.get("/games", async (request, response) => {
   const games = await prisma.game.findMany({
@@ -114,4 +116,4 @@ app.get("/ads/:id/discord", async (request, response) => {
   })
 })
 
-app.listen(3333)
+app.listen(port)
