@@ -11,6 +11,8 @@ app.use(cors())
 
 const prisma = new PrismaClient()
 
+const port = process.env.PORT || 3333
+
 /**** GAMES ****/
 app.get("/games", async (request, response) => {
   const games = await prisma.game.findMany({
@@ -23,6 +25,25 @@ app.get("/games", async (request, response) => {
     }
   })
   return response.json(games)
+})
+
+app.get("/game/:id", async (request, response) => {
+  const gameId: string = request.params.id
+
+  const game = await prisma.game.findUnique({
+    include: {
+      _count: {
+        select: {
+          ads: true
+        }
+      }
+    },
+    where: {
+      id: gameId
+    }
+  })
+
+  return response.json(game)
 })
 
 /**** ADS ****/
@@ -95,4 +116,4 @@ app.get("/ads/:id/discord", async (request, response) => {
   })
 })
 
-app.listen(3333)
+app.listen(port)
