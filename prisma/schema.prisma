@@ -1,3 +1,6 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
 generator client {
   provider = "prisma-client-js"
 }
@@ -8,15 +11,15 @@ datasource db {
 }
 
 model Game {
-  id        String @id @default(uuid())
+  id        Int    @id @default(autoincrement())
   title     String
   bannerUrl String
   ads       Ad[]
 }
 
 model Ad {
-  id              String   @id @default(uuid())
-  gameId          String
+  id              Int      @id @default(autoincrement())
+  gameId          Int
   name            String
   yearsPlaying    Int
   discord         String
